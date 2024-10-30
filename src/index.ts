@@ -1,15 +1,20 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import taskRoutes from './routes';
 
 const app = express();
-const port = 3000
-const hostname = 'http://localhost'
+const PORT = 3000;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('tt-nk-test')
+// Routes
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json('tt-nk-test');
 })
 
-app.listen(port, () => {
-  console.log(`Server is running on ${hostname}:${port}`);
+// Tasks routes
+app.use('/api/tasks', taskRoutes);
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
